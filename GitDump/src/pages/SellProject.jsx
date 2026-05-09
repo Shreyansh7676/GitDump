@@ -146,21 +146,19 @@ export default function SellProject() {
                 <div key={s.id} className="flex items-center flex-1">
                   <button
                     onClick={() => s.id < currentStep && setCurrentStep(s.id)}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all duration-200 ${
-                      currentStep === s.id
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all duration-200 ${currentStep === s.id
                         ? 'text-brand'
                         : s.id < currentStep
                           ? 'text-brand/60 cursor-pointer hover:text-brand'
                           : 'text-neutral-600 cursor-default'
-                    }`}
+                      }`}
                   >
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-semibold transition-all duration-200 ${
-                      currentStep === s.id
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-semibold transition-all duration-200 ${currentStep === s.id
                         ? 'bg-brand text-surface-0'
                         : s.id < currentStep
                           ? 'bg-brand/10 text-brand'
                           : 'bg-surface-2 text-neutral-600'
-                    }`}>
+                      }`}>
                       {s.id < currentStep ? <Check className="w-3.5 h-3.5" /> : s.id}
                     </div>
                     <span className="hidden sm:inline text-xs font-medium">{s.label}</span>
