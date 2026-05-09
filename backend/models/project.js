@@ -31,6 +31,18 @@ const projectSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
+    },
+    techStack: {
+        type: [String]
+    },
+    monthlyRevenue: {
+        type: Number
+    },
+    activeUsers: {
+        type: Number
+    },
+    uptime: {
+        type: Number
     }
 
 }, { timestamps: true })
