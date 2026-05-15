@@ -18,6 +18,7 @@ export default function Signup() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1); // 1 = form, 2 = success
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
 
   const passwordStrength = passwordRequirements.filter((r) => r.test(password)).length;
 
@@ -39,10 +40,7 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setStep(2);
-    }, 2000);
+    window.location.href = `${apiBaseUrl}/api/auth/google`;
   };
 
   return (
@@ -130,14 +128,15 @@ export default function Signup() {
               </div>
 
               {/* Social signup */}
-              <div className="grid grid-cols-2 gap-3 mb-8">
-                <button className="flex items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-neutral-300 border border-neutral-800 hover:border-neutral-600 bg-surface-1 hover:bg-surface-2 rounded-xl transition-all duration-200">
-
-                  GitHub
-                </button>
-                <button className="flex items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-neutral-300 border border-neutral-800 hover:border-neutral-600 bg-surface-1 hover:bg-surface-2 rounded-xl transition-all duration-200">
+              <div className="mb-8">
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                  className="w-full flex items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-neutral-300 border border-neutral-800 hover:border-neutral-600 bg-surface-1 hover:bg-surface-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl transition-all duration-200"
+                >
                   <Globe className="w-4 h-4" />
-                  Google
+                  Continue with Google
                 </button>
               </div>
 
@@ -147,7 +146,7 @@ export default function Signup() {
                   <div className="w-full border-t border-neutral-800" />
                 </div>
                 <div className="relative flex justify-center text-xs">
-                  <span className="px-3 bg-surface-0 text-neutral-600 uppercase tracking-wider">or continue with email</span>
+                  <span className="px-3 bg-surface-0 text-neutral-600 uppercase tracking-wider">Google OAuth only</span>
                 </div>
               </div>
 
@@ -289,7 +288,7 @@ export default function Signup() {
                     <div className="w-4 h-4 border-2 border-surface-0/30 border-t-surface-0 rounded-full animate-spin" />
                   ) : (
                     <>
-                      Create Account
+                      Continue with Google
                       <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                     </>
                   )}

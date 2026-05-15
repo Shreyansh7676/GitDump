@@ -9,12 +9,16 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
+
+  const handleGoogleAuth = () => {
+    setIsLoading(true);
+    window.location.href = `${apiBaseUrl}/api/auth/google`;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    // Simulate loading
-    setTimeout(() => setIsLoading(false), 2000);
+    handleGoogleAuth();
   };
 
   return (
@@ -84,14 +88,15 @@ export default function Login() {
           </div>
 
           {/* Social login */}
-          <div className="grid grid-cols-2 gap-3 mb-8">
-            <button className="flex items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-neutral-300 border border-neutral-800 hover:border-neutral-600 bg-surface-1 hover:bg-surface-2 rounded-xl transition-all duration-200">
-
-              GitHub
-            </button>
-            <button className="flex items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-neutral-300 border border-neutral-800 hover:border-neutral-600 bg-surface-1 hover:bg-surface-2 rounded-xl transition-all duration-200">
+          <div className="mb-8">
+            <button
+              type="button"
+              onClick={handleGoogleAuth}
+              disabled={isLoading}
+              className="w-full flex items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-neutral-300 border border-neutral-800 hover:border-neutral-600 bg-surface-1 hover:bg-surface-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl transition-all duration-200"
+            >
               <Globe className="w-4 h-4" />
-              Google
+              Continue with Google
             </button>
           </div>
 
@@ -101,7 +106,7 @@ export default function Login() {
               <div className="w-full border-t border-neutral-800" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="px-3 bg-surface-0 text-neutral-600 uppercase tracking-wider">or continue with email</span>
+              <span className="px-3 bg-surface-0 text-neutral-600 uppercase tracking-wider">Google OAuth only</span>
             </div>
           </div>
 
@@ -188,7 +193,7 @@ export default function Login() {
                 <div className="w-4 h-4 border-2 border-surface-0/30 border-t-surface-0 rounded-full animate-spin" />
               ) : (
                 <>
-                  Sign In
+                  Continue with Google
                   <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </>
               )}
